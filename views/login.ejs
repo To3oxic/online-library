@@ -1,0 +1,138 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>welcome</title>
+    <style>
+        *{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    }
+
+            input:-webkit-autofill,
+        input:-webkit-autofill:hover, 
+        input:-webkit-autofill:focus, 
+        input:-webkit-autofill:active{
+            -webkit-box-shadow: 0 0 0 30px transparent inset !important;
+        }
+    a{
+        text-decoration: none;
+        color: white;
+        transition: all 500ms;
+    }
+    a:hover{
+        color: wheat;
+    }
+
+    body{
+        background: linear-gradient(to right, blue , black) ;
+        display: flex;
+        flex-direction: column;
+    }
+    .navbar{
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        padding: 25px;
+        font-size: 40px;
+        color: white;
+        text-transform: uppercase;
+
+    }
+    .login_form{
+        display: flex;
+        flex-direction: column;
+        width: 500px;
+        margin: auto;
+    }
+
+    .input{
+        color: white;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        line-height: 25px;
+        margin-top: 15px ;
+    }
+    .input input{
+        width: 80%;
+        background: transparent;
+        height: 25px;
+        border: none;
+        outline: 0;
+        border-bottom: 3px #ffffff solid;
+        text-align: center;
+        /* margin: 15px; */
+        transition: all 500ms;
+        border-radius: 15px;
+        color: #ffffff;
+        font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    }
+    .input input:focus{
+        width: 80%;
+        background: transparent;
+        border: #ffffff solid 1px;
+    }
+    .input input:active{
+        width: 80%;
+        background: transparent;
+    }
+
+    .loginbtn{
+        width: 200px;
+        height: 50px;
+        border-radius: 30px;
+        margin: 15px auto;
+        outline: 0;
+        border: 1px solid rgba(0, 0, 125, 1);
+        font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+        font-weight: bold;
+        background: rgba(0, 0, 170, 0.8);
+        cursor: pointer;
+        font-size: 25px;
+        color: #ffffff;
+        transition: all 500ms;
+    }
+    .loginbtn:hover{
+        transform: scale(1.2);
+    }
+
+    @media (max-width:768px) {
+        .navbar{
+            font-size: 25px;
+        }
+    }
+
+    </style>
+</head>
+<body>
+
+    <div class="navbar">
+        <span>welcome</span> 
+        <!-- user -->
+        <div class="btncontainer">
+        
+       
+        <a href="/register">Register</a>
+         </div>
+    </div>
+
+    <form action="/login" class="login_form" method="POST">
+        <span class="input">
+            Email:
+        <input type="text"  name="usename"  required>
+        </span>
+        <span class="input">
+            Password:
+            <input type="password"  name="password"  required>
+        </span>
+        
+        <input class="loginbtn" type="submit" value="login">
+    </form>
+
+   
+</body>
+</html>

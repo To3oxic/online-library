@@ -1,0 +1,267 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>welcome</title>
+    <style>
+        *{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    }
+
+    a{
+        text-decoration: none;
+        color: white;
+        transition: all 500ms;
+    }
+    a:hover{
+        color: wheat;
+    }
+
+    body{
+        background: linear-gradient(to right, blue , black) ;
+        display: flex;
+        flex-direction: column;
+    }
+
+    ::placeholder {
+     color: white;
+    opacity: 1; /* Firefox */
+    }
+
+    .booksrow{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 80%;
+   
+    margin: 10px auto ;
+    line-height: 25px;
+    font-size: 25px;
+    background: rgba(200, 200, 200, 0.5);
+    border-radius: 25px;
+    padding: 5px 15px;
+    
+    }
+    .booksrow span{
+        justify-content: space-between;
+        width: 700px;
+        display: flex;
+    }
+    .title{
+        margin: 10px auto;
+        color: white;
+        font-weight: bold;
+        transition:  all 300ms;
+        text-align: center;
+    }
+    .search_form{
+        width: 300px;
+        margin: 15px auto;
+    }
+    .search_form input{
+        width: 80%;
+        background: transparent;
+        height: 25px;
+        border: none;
+        outline: 0;
+        border-bottom: 3px #ffffff solid;
+        text-align: center;
+        /* margin: 15px; */
+        transition: all 500ms;
+        border-radius: 15px;
+        color: #ffffff;
+        font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    }
+
+    .loginbtn{
+        width: 200px;
+        height: 50px !important;
+        border-radius: 30px;
+        margin: 15px auto !important;
+        outline: 0;
+        border: 1px solid rgba(0, 0, 125, 1) !important;
+        font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+        font-weight: bold;
+        background: rgba(0, 0, 170, 0.8);
+        cursor: pointer;
+        font-size: 25px;
+        color: #ffffff;
+        transition: all 500ms;
+    }
+    .loginbtn:hover{
+        transform: scale(1.2);
+        border: 1px solid #ffffff !important;
+    }
+
+    .downloadbtn{
+        border-radius: 30px;
+        /* margin: 15px auto !important; */
+        padding: 15px;
+        outline: 0;
+        border: 1px solid rgba(0, 0, 125, 1) !important;
+        font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+        font-weight: bold;
+        background: rgba(0, 0, 170, 0.8);
+        cursor: pointer;
+        font-size: 25px;
+        color: #ffffff;
+        transition: all 500ms;
+        text-align: center !important;
+        margin: auto;
+    }
+
+    .downloadbtn:hover{
+        transform: scale(1.2);
+        border: 1px solid #ffffff !important;
+    }
+
+    @media (max-width:1228px) {
+        .booksrow{
+            flex-direction: column;
+        }
+        .booksrow span{
+            flex-direction: column;
+            width: 100%;
+        }
+    }
+
+    </style>
+
+    
+</head>
+<body>
+
+    
+    
+    
+    <h1 class="title">Welcome:  <%= usename %></h1>
+
+    <!-- to check permisions -->
+    <h1 id="username" style="display: none;"><%= usename %></h1>
+    
+    <!-- search text -->
+    <form action="/book/show" class="search_form" method="post">
+    <input type="text" name="searchedtext" placeholder="type you text here">
+    <!-- to pass username when we search to check permisions -->
+    <input type="text" name="username" value="<%= usename %>" style="display: none;">
+    <input type="submit" class="loginbtn" onclick="refreshPage" id="submitt" value="search">
+    </form>
+    
+   
+    
+    
+
+    <% if (search) { %>
+        <h3 id="numberofbooks" style="display: none;" ><%= allbooks.length %></h3>
+
+        <% for(var i=0; i<allbooks.length; i++) {%>
+
+            <div class="booksrow" id="hide<%= i %>">
+                
+            <span>  
+                <span class="title" id="notitle<%= i %>"> Title: <%= allbooks[i].title %></span> 
+                <span class="title" > Author: <%= allbooks[i].author %></span> 
+                <span class="title" > year: <%= allbooks[i].year %></span> 
+            </span>
+            
+           <h1 id="allbookscanreadusers<%= i %>"  style="display: none;"><%= allbooks[i].canreadusers %></h1>
+         
+        
+           <!-- if username is in canreaduser arry show dounloadbtn esle show requestbtn -->
+           <a href="/<%= allbooks[i].book %>" class="downloadbtn"  id="allbooksurl<%= i %>" style="display: none;" > download </a> 
+           
+           <form action="/adminpanel" style="display: none;" id="requestform<%= i %>" method="POST">
+            <input type="text"  name="usename" style="display: none;" value="<%= usename %>">
+            <input type="text"  name="message" style="display: none;" value="wants to get permision to download <%= allbooks[i].title %>" >
+            <input type="submit" class="downloadbtn" value="request permision">
+            </form>
+        </div>
+            
+         <% } %>
+        
+        <%}
+        else { %>
+            <h3 id="numberofbooks" style="display: none;" ><%= allbookstitle.length %></h3>
+
+        <% for(var i=0; i<allbookstitle.length; i++) {%>
+
+            <div class="booksrow" id="hide<%= i %>">
+                
+            <span>  
+                <span class="title" id="notitle<%= i %>"> Title: <%= allbookstitle[i] %></span> 
+                <span class="title" > Author: <%= allbooksauthor[i] %></span> 
+                <span class="title" > year: <%= allbooksyear[i] %></span> 
+            </span>
+            
+           <h1 id="allbookscanreadusers<%= i %>"  style="display: none;"><%= allbookscanreadusers[i] %></h1>
+         
+        
+           <!-- if username is in canreaduser arry show dounloadbtn esle show requestbtn -->
+           <a href="/<%= allbooksurl[i] %>" class="downloadbtn"  id="allbooksurl<%= i %>" style="display: none;" > download </a> 
+           
+           <form action="/adminpanel" style="display: none;" id="requestform<%= i %>" method="POST">
+            <input type="text"  name="usename" style="display: none;" value="<%= usename %>">
+            <input type="text"  name="message" style="display: none;" value="wants to get permision to download <%= allbookstitle[i] %>" >
+            <input type="submit" class="downloadbtn" value="request permision">
+            </form>
+        </div>
+            
+         <% } %>
+            <% }
+        %>
+
+
+
+ 
+   
+ <script>
+    //  number of books
+     let nob = document.getElementById("numberofbooks").innerHTML
+    //  var i =0
+    console.log(nob)
+    var text =[]
+    var username =[]
+    var downlaodbtn=[]
+    var requestform= []
+    var notitle =[]
+    var hide = []
+     for(var i = 0; i<nob; i++){
+        text[i] = document.getElementById("allbookscanreadusers"+i).innerHTML
+        username[i] = document.getElementById("username").innerHTML
+        notitle[i] = document.getElementById("notitle" + i).innerHTML
+        console.log(notitle[i])
+        hide[i] = document.getElementById("hide" + i)
+        if(notitle[i] == ' Title: '){
+            hide[i].style.display = "none"
+        }
+
+        var myArray = text[i].split(",");
+        downlaodbtn[i] = document.getElementById("allbooksurl"+i)
+        requestform[i] = document.getElementById("requestform"+i)
+       
+        if(myArray.includes(username[i]) || myArray.includes('all') || myArray.includes('All') ){
+            downlaodbtn[i].style.display = "flex"
+            myArray =''
+        }else{
+            requestform[i].style.display = "flex"
+            myArray =''
+        }
+     }
+     
+
+      
+     
+     
+     
+    
+    
+
+    
+
+
+ </script>
+</body>
+</html>
