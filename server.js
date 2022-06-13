@@ -11,7 +11,7 @@ const MessageRoute = require('./routes/messageroute')
 
 
 
-
+//connect to the database
 mongoose.connect('mongodb+srv://To3oxic:Projectlibrary@cluster0.ftvrt.mongodb.net/myFirstDatabase?retryWrites=true&w=majority',{useNewUrlParser:true, useUnifiedTopology:true})
 const db = mongoose.connection
 

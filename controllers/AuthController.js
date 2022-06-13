@@ -7,7 +7,7 @@ const { redirect } = require('express/lib/response')
 
 
 
-
+//make a new account and store it in the db
 const register = (req, res, next)=>{
     bcrypt.hash(req.body.password, 10, function(err, hasedPass){
         if(err){
@@ -36,7 +36,7 @@ const register = (req, res, next)=>{
 
  
 
-
+//check if the given login infos are stored in the db
 const login = (req, res, next) =>{
     var  usename = req.body.usename
     var password = req.body.password

@@ -8,7 +8,7 @@ const flash = require('connect-flash');
     var allmessages =[String] 
     
 
-    
+// show requstes of books 
 const index = (req, res,next)=>{
     
     Message.find({})
@@ -35,7 +35,7 @@ const store = (req, res, next)=>{
     Message.find({}, (err, result)=>{
         if (err){}
         else{
-            var x = true
+            var x = true // to check if request exisit already
             for (let i = 0; i < result.length; i++) {
                 
                 allusers[i] = result[i].usename
