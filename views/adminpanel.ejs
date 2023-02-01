@@ -4,189 +4,32 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>welcome</title>
-    <style>
-            *{
-    padding: 0;
-    margin: 0;
-    box-sizing: border-box;
-    }
-
-    a{
-        text-decoration: none;
-        color: white;
-        transition: all 500ms;
-    }
-    a:hover{
-        color: wheat;
-    }
-
-    body{
-        background: linear-gradient(to right, blue , black) ;
-        display: flex;
-        flex-direction: column;
-    }
-
-    ::placeholder {
-     color: white;
-    opacity: 1; /* Firefox */
-    }
-
-    .booksrow{
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    width: 80%;
-   
-    margin: 10px auto ;
-    line-height: 25px;
-    font-size: 25px;
-    background: rgba(200, 200, 200, 0.5);
-    border-radius: 25px;
-    padding: 5px 15px;
-    
-    }
-    .addbooksrow{
-    display: flex;
-    flex-direction: column;
-    
-    width: 80%;
-   
-    margin: 10px auto ;
-    line-height: 25px;
-    font-size: 25px;
-    background: rgba(200, 200, 200, 0.5);
-    border-radius: 25px;
-    padding: 5px 15px;
-    
-    }
-    .booksrow span{
-        justify-content: space-between;
-        width: 700px;
-        display: flex;
-    }
-    .title{
-        margin: 10px auto;
-        color: white;
-        font-weight: bold;
-        transition:  all 300ms;
-        text-align: center;
-        font-size: 25px;
-    }
-    .search_form{
-        width: 300px;
-        margin: 15px auto;
-    }
-    .search_form input{
-        width: 80%;
-        background: transparent;
-        height: 25px;
-        border: none;
-        outline: 0;
-        border-bottom: 3px #ffffff solid;
-        text-align: center;
-        /* margin: 15px; */
-        transition: all 500ms;
-        border-radius: 15px;
-        color: #ffffff;
-        font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-    }
-
-    .loginbtn{
-        width: 200px;
-        height: 50px !important;
-        border-radius: 30px;
-        margin: 15px auto !important;
-        outline: 0;
-        border: 1px solid rgba(0, 0, 125, 1) !important;
-        font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-        font-weight: bold;
-        background: rgba(0, 0, 170, 0.8);
-        cursor: pointer;
-        font-size: 25px;
-        color: #ffffff;
-        transition: all 500ms;
-        text-align: center;
-        padding: 10px 5px;
-        line-height: 25px;
-    }
-    .loginbtn:hover{
-        transform: scale(1.2);
-        border: 1px solid #ffffff !important;
-    }
-
-    .downloadbtn{
-        border-radius: 30px;
-        /* margin: 15px auto !important; */
-        padding: 15px;
-        outline: 0;
-        border: 1px solid rgba(0, 0, 125, 1) !important;
-        font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-        font-weight: bold;
-        background: rgba(0, 0, 170, 0.8);
-        cursor: pointer;
-        font-size: 25px;
-        color: #ffffff;
-        transition: all 500ms;
-    }
-
-    .downloadbtn:hover{
-        transform: scale(1.2);
-        border: 1px solid #ffffff !important;
-    }
-
-    .enterbooktitle{
-        color: #ffffff;
-        font-size: 20px;
-        margin-top: 25px;
-        text-align: center;
-    }
-
-    .colmn{
-        flex-direction: column !important;
-    }
-
-
-    </style>
+    <link rel="stylesheet" href="css/adminpanel.css">
 </head>
 <body>
     
    <a href="/book/admin/user"  class="title"> <button class="loginbtn">show like gust</button> </a>
    <span class="title">Inbox</span>
 
- 
-  
+    <% for (var i =0; i < Messages.length;  i++ ) { %>
+        <div class="booksrow">
+            <span class="title">  <%= Messages[i].usename %></span> 
+            <span class="title">  <%= Messages[i].message %></span> 
+            <form action="/book/update" class="addbooksrow colmn"  method="post">
+                <input type="text" class="loginbtn" placeholder="Enter Book title" name="booktitle" id="">
+                <input type="text" class="loginbtn" style="display: none;" placeholder="Username" value="<%= Messages[i]._id %>" name="msgid" id="">
+                <input type="text" class="loginbtn" style="display: none;" placeholder="Username" value="<%= Messages[i].usename %>" name="addeduser" id="">
+                <input type="submit" class="loginbtn" value="Adduser">
+            </form>    
+        </div>    
+    <% } %>
 
-     <% for (var i =0; i < Messages.length;  i++ ) { %>
-            <div class="booksrow">
-            
-        
-       <span class="title">  <%= Messages[i].usename %></span> 
-       <span class="title">  <%= Messages[i].message %></span> 
-       <form action="/book/update" class="addbooksrow colmn"  method="post">
-            
-        
-        <input type="text" class="loginbtn" placeholder="Enter Book title" name="booktitle" id="">
-        
-        <input type="text" class="loginbtn" style="display: none;" placeholder="Username" value="<%= Messages[i]._id %>" name="msgid" id="">
-        <input type="text" class="loginbtn" style="display: none;" placeholder="Username" value="<%= Messages[i].usename %>" name="addeduser" id="">
-        <input type="submit" class="loginbtn" value="Adduser">
-    </form>
-       
-        </div>
-        
-        <% } %>
+    <a href="/user/<%= token%>" class="loginbtn" > show all users </a>
+    <br>
 
-      
-        
-
-     <a href="/user/<%= token%>" class="loginbtn" > show all users </a>
-        <br>
-
-        <!-- add permision to user -->
-        <h1 class="title"> Give read permision to user </h1>
-
-        
-
+    <!-- TODO something should be changed here-->
+    <!-- add permision to user -->
+    <h1 class="title"> Give read permision to user </h1>
         <h1 class="title"> Remove read permision to user </h1>
      <form action="/book/delete" class="addbooksrow colmn" method="post">
        
@@ -212,8 +55,5 @@
         <input type="submit"  class="loginbtn" value="Add Book">
     </form>
 
-   
-
-   
 </body>
 </html>

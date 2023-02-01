@@ -1,6 +1,5 @@
 const express = require('express')
 const mongoose = require('mongoose')
-const morgan = require('morgan')
 const bodyParser = require('body-parser')
 const flash = require('connect-flash');
 
@@ -28,12 +27,13 @@ db.once('open',()=>{
 const app = express()
 
 // set the view engine to ejs
-app.set('view engine', 'ejs');
-app.use(express.static(__dirname + '/views'));
+app.set('view engine', 'ejs')
+app.use(express.static(__dirname + '/views'))
 
-app.use(morgan('dev'))
+//middleware for parsing bodies from URL
 app.use(bodyParser.urlencoded({extended:true}))
 app.use(bodyParser.json())
+// upload the files into uploads
 app.use('/uploads', express.static('uploads'))
 
 
@@ -49,13 +49,3 @@ app.use('/', AuthRoute)
 app.use('/book', BookRoute)
 app.use('/user', UserRoute)
 app.use('/adminpanel', MessageRoute)
-
-
-
-
-
-
- 
-
-
-

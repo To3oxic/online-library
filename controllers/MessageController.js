@@ -15,18 +15,9 @@ const index = (req, res,next)=>{
     .then(Messages =>{
         var usename = req.params.name
         var token = req.params.token
-        
-        res.render('../views/adminpanel', {Messages:Messages,usename:usename,token:token }) 
-        
-    })
-
-    
-   
+        res.render('../views/adminpanel', {Messages:Messages,usename:usename,token:token })         
+    }) 
 }
-
-
-
-
 
 
 // add mesage
@@ -36,30 +27,22 @@ const store = (req, res, next)=>{
         if (err){}
         else{
             var x = true // to check if request exisit already
-            for (let i = 0; i < result.length; i++) {
-                
+            // check if user sent already a request 
+            for (let i = 0; i < result.length; i++) {      
                 allusers[i] = result[i].usename
                 allmessages[i] = result[i].message
                 if (allusers[i] == req.body.usename ){
                     if(allmessages[i] == req.body.message){
                         x = false
-                    break;
+                        break;
                     }     
                 }
-
               }
-              
-              console.log(x)
-
               if (x){
                   let message = new Message({
                       usename: req.body.usename,
-                      message: req.body.message,
-                   
-                      
+                      message: req.body.message,    
                   })
-              
-                  
                   message.save()
                   .then(response =>{
                     res.redirect('back')                   
@@ -68,26 +51,14 @@ const store = (req, res, next)=>{
                       res.json({
                           message: 'error'
                       })
-                  })
-                  
+                  })            
               }
               else{
-                  res.json({
-                      message: 'you have requested bofore'
-                  })
+                  res.redirect('back')
               }
-
-
         }
-    })
-
-       
+    }) 
 }
-
-
-
-
-
 
 
 module.exports= {
